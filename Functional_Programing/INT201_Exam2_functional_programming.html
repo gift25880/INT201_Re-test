@@ -1,0 +1,113 @@
+// <script> // 
+
+// Student ID: 62130500048
+// Student Name and Lastname: Pathinya Thonguam
+
+/* Basic Functional Programming in JavaScript */
+
+class Person {
+    constructor(firstname,lastname,age,salary) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.age = age;
+        this.salary = salary;
+    }
+    toString = function() { 
+        return `{Name: '${this.firstname} ${this.lastname}'`
+             + `Age: ${this.age} Salary: ${this.salary}}`;
+    }
+}
+
+let people = [
+    new Person('Sompong', 'Klahan', 20, 35000),
+    new Person('Somchai', 'Klahan', 25, 28000),
+    new Person('Somjai', 'Pradtana', 15, 18000),
+    new Person('Somsri', 'Meesuk', 32, 28000),
+    new Person('Arun', 'Zoom', 22, 18000)
+];
+
+/* 
+minValue function จะ return ค่าน้อย ของสองค่า v1 และ v2 
+และจะ return null ถ้าค่า v1 และ v2 มีค่าเท่ากัน
+*/
+let minValue = (v1, v2) => v1 < v2 ? v1 : v1 > v2 ? v2 : null;
+
+console.log(minValue(people[0].lastname, people[1].lastname)); // ควรได้ผลลัพธ์เป็น null
+console.log(minValue(people[0].age, people[1].age)); // ควรได้ผลลัพธ์เป็น 20
+
+/*
+1 จงเขียน maxValue function ซึ่งให้ผลตรงข้ามกับ minValue 
+  แต่ให้ประยุกต์จากการเรียกใช้ minValue แทนการเขียน maxValue เองทั้งหมด
+*/
+
+// put your answer here
+let maxValue = (v1,v2) => {
+  if (minValue(v1,v2) == null) {
+    return null;
+  } else if (minValue(v1,v2) == v1) {
+    return v2;
+  } else {
+    v1;
+  }
+};
+//test maxValue
+console.log(maxValue(people[0].age, people[1].age));
+/*
+2 จงเขียน minOf function ซึ่งรับ object มาสองค่า o1 และ o2 และรับ f function มา 1 function
+  โดย minOf จะ 
+  (1) return ค่า o1 ถ้า f(o1) < f(o2), หรือ 
+  (2) return ค่า o2 ถ้า f(o2) < f(o1)
+  หรือ return ค่า null ถ้าไม่เข้าเงื่อนไขใด ๆ ข้างต้น
+*/
+
+let minOf = (o1, o2, f) => {
+  if (f(o1) < f(o2)) {
+    return o1;
+  } else if (f(o2) < f(o1)) {
+    return o2;
+  } else {
+    return null;
+  }
+}; // put your answer here (แทนที่ null)
+
+console.log(minOf(people[0], people[1], o => o.lastname)); // ควรได้ผลลัพธ์เป็น null
+console.log(minOf(people[0], people[1], o => o.age)); // ควรได้ผลลัพธ์เป็น people[0]
+
+/* 
+3 จงเขียน function ที่รับ array of objects มา 1 array 
+  และ function f มา 1 function แล้ว return object ที่มีค่า f(object) ต่ำที่สุด
+  หรือในกรณีที่มีค่าต่ำสุดเท่ากันหลายตัว ให้ return object ตัวใดตัวหนึ่งที่มีค่า f() ต่ำสุดก็ได้
+*/
+
+let minInArray = function(arr, f) {
+    // put your answer here
+    let min = arr[0];
+    for (let i = 0; i<arr.length; i++) {
+      if ( f(arr[i]) < f(min)) {
+        min = arr[i];
+        // console.log(i);
+      }
+    }
+    return min;
+}
+//test minInArray
+console.log(minInArray(people, o => o.age ));
+/*
+4 จงเขียน maxOf function ซึ่งให้ผลตรงข้ามกับ minOf function
+  โดยให้ประยุกต์การเรียกใช้ minOf โดยไม่ต้องเขียน maxOf function เองทั้งหมด
+*/
+
+// put your answer here
+let maxOf = (o1,o2,f) => {
+  if (minOf(o1,o2,f) == null) {
+    return null;
+  } else if (minOf(o1,o2,f) == o1) {
+    return o2;
+  } else {
+    return o2;
+  }
+}
+//test maxOf
+console.log(maxOf(people[0], people[1], o => o.age));
+
+// </script> // 

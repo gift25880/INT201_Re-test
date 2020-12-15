@@ -1,0 +1,105 @@
+// <script> // 
+// Student ID: 62130500048
+// Student Name and Lastname: Pathinya Thonguam
+
+/*
+Basic Function Concept in JavaScript
+
+1. ทดสอบเรื่อง default parameters
+
+1.1 จงแก้ไข function ที่ชื่อ arrayToString 
+    ให้แต่ละ parameter มี default value ดังนี้
+  - separator มี default value เป็น string มีค่า ";"
+  - begin มีค่า default value เป็น string มีค่า "<"
+  - end มีค่า default value เป็น string มีค่า ">"
+*/
+function arrayToString(arr, separator=";", begin="<", end=">") {
+    if (! Array.isArray(arr)) return arr.toString();
+    if (arr.length==0) return begin + end;
+    let s = begin + arrayToString(arr[0], separator, begin, end);
+    for (let i=1; i<arr.length; ++i) {
+        s += separator + arrayToString(arr[i], separator, begin, end);
+    }
+    return s + end;
+}
+
+var myArray = ["JavaScript", [10, true], "Hello", ["World"]];
+
+/* ตัวอย่างการใช้ */
+
+// ไม่ใช้ default value เลยสำหรับค่า separator, begin, และ end
+console.log(arrayToString(myArray, " + ", "{", "}")); 
+
+/*
+1.2 จงเรียกใช้คำสั่ง arrayToString กับข้อมูล myArray เช่นเดียวกับตัวอย่างด้านบน
+    โดยไม่กำหนดค่า separator, begin, และ end 
+    เพื่อให้ function นี้ใช้ default value ทั้งหมด
+*/
+
+// put your answer here
+console.log(arrayToString(myArray));
+/* 
+2. ทดสอบเรื่อง implicit parameters
+
+2.1 จงเขียน function ชื่อ a2s ซึ่งทำงานเหมือน arrayToString ทุกประการ 
+    แต่ไม่มี default parameters และไม่มี explicit parameters
+    โดยใช้ implicit parameters แทน 
+    (ห้าม น.ศ. เรียกใช้ arrayToString function ใน a2s function 
+     แต่ น.ศ. สามารถ copy arrayToString function มาตั้งต้นสำหรับ a2s ได้)
+*/
+
+function a2s() {
+    // put your answer here
+    let arr = arguments[0];
+    let separator = arguments[1];
+    let begin = arguments[2];
+    let end = arguments[3];
+    if (! Array.isArray(arr)) return arr.toString();
+    if (arr.length==0) return begin + end;
+    let s = begin + arrayToString(arr[0], separator, begin, end);
+    for (let i=1; i<arr.length; ++i) {
+        s += separator + arrayToString(arr[i], separator, begin, end);
+    }
+    return s + end;
+}
+
+
+/*
+3. ทดสอบเรื่อง spread operators
+
+3.1 จงเรียกใช้ arrayToString function ในข้อ 1.1 กับ myArray
+    ด้วยการใช้ค่าใน xmlJoiner array เป็นค่าของ separator, begin, และ end
+    (ไม่ต้องคำนึงถึงเรื่อง default parameters) โดยอาศัยหลักการของ spread operators
+*/
+
+var xmlJoiner = ["<sep/>" , "<array>", "</array>"];
+
+// put your answer here
+console.log(arrayToString(myArray,...xmlJoiner));
+//test a2s
+console.log(a2s(myArray,...xmlJoiner));
+
+/*  
+4. ทดสอบเรื่อง rest parameters
+
+4.1 จงเขียน function ชื่อ increment 
+    โดย function นี้ จะนำเอาค่าของ parameter ตัวแรก
+    ไปบวกค่าเพิ่มให้กับ parameter ทุกตัวที่ตามมาทั้งหมด 
+    แล้ว return ผลลัพธ์เป็น array ของค่าผลบวก 
+    เช่น การเรียกใช้ 
+      increment(2, 40, 1000, 300) 
+      จะ return ค่าเป็น [42, 1002, 302]
+    โดย นศ. ต้องใช้ rest parameters อย่างเหมาะสมที่สุด
+*/
+
+// put your answer here
+
+function increment(incrementNumber,...rest) {
+    let result = [];
+    for (let i=0; i<rest.length; i++) {
+        result[i] = rest[i]+incrementNumber;
+    }
+    return result;
+}
+console.log(increment(2,40,1000,300));
+// </script> // 
